@@ -1,11 +1,12 @@
 import InputSearch from '@component/components/InputSearch';
 import Loading from '@component/components/Loading';
+import WeatherInfo from '@component/components/WeatherInfo';
 import { WeatherContext } from '@component/contexts/WeatherContext';
 import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const { setLatitude, setLongitude } = useContext(WeatherContext);
+  const { setCity, setState } = useContext(WeatherContext);
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -17,8 +18,17 @@ export default function Home() {
     const locationEnabled: PositionCallback = ({
       coords: { latitude, longitude },
     }) => {
-      setLatitude(latitude);
-      setLongitude(longitude);
+      fetch(
+        `
+        https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.NEXT_PUBLIC_API_GEOLOCATION_KEY}&type=city`,
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result.features[0].properties.city);
+          setCity(result.features[0].properties.city);
+          setState(result.features[0].properties.state_code);
+        })
+        .catch((error) => console.log('error', error));
       setLoading(false);
     };
 
@@ -31,11 +41,12 @@ export default function Home() {
         maximumAge: 0,
       },
     );
-  }, [setLatitude, setLongitude]);
+  }, [setCity, setState]);
 
   return (
     <main className="flex min-h-screen items-center justify-center p-24">
       {loading ? <Loading /> : <InputSearch />}
+      <WeatherInfo />
     </main>
   );
 }

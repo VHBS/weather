@@ -5,17 +5,17 @@ type Props = {
 };
 
 type WeatherContext = {
-  latitude: number;
-  setLatitude: Dispatch<number>;
-  longitude: number;
-  setLongitude: Dispatch<number>;
+  city: string;
+  setCity: Dispatch<string>;
+  state: string;
+  setState: Dispatch<string>;
 };
 
 const WeatherContextDefaultValues: WeatherContext = {
-  latitude: 0,
-  setLatitude: () => null,
-  longitude: 0,
-  setLongitude: () => null,
+  city: '',
+  setCity: () => null,
+  state: '',
+  setState: () => null,
 };
 
 export const WeatherContext = createContext<WeatherContext>(
@@ -23,14 +23,14 @@ export const WeatherContext = createContext<WeatherContext>(
 );
 
 export function WeatherContextProvider({ children }: Props) {
-  const [latitude, setLatitude] = useState<number>(-23.9335988);
-  const [longitude, setLongitude] = useState<number>(-46.3286399);
+  const [city, setCity] = useState<string>('');
+  const [state, setState] = useState<string>('');
 
   const value = {
-    latitude,
-    setLatitude,
-    longitude,
-    setLongitude,
+    city,
+    setCity,
+    state,
+    setState,
   };
   return (
     <>

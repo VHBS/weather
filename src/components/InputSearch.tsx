@@ -2,7 +2,7 @@ import { WeatherContext } from '@component/contexts/WeatherContext';
 import React, { useContext, useState } from 'react';
 
 export default function InputSearch() {
-  const { setLatitude, setLongitude } = useContext(WeatherContext);
+  const { setCity, setState } = useContext(WeatherContext);
   const [searchInputValue, setSearchInputValue] = useState<string>('');
 
   const findAutoComplete = () => {
@@ -11,8 +11,9 @@ export default function InputSearch() {
     )
       .then((response) => response.json())
       .then((result) => {
-        setLatitude(result.results[0].lat);
-        setLongitude(result.results[0].lon);
+        setSearchInputValue(result.results[0].city);
+        setCity(result.results[0].city);
+        setState(result.results[0].state_code);
       })
       .catch((error) => console.log('error', error));
   };
