@@ -43,7 +43,7 @@ export default function Home() {
   }, [setCity, setState]);
 
   return (
-    <main className="flex flex-col min-h-screen items-center justify-center px-10">
+    <main className="flex flex-col min-h-screen items-center justify-center p-10">
       {loading ? (
         <Loading />
       ) : (

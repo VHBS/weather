@@ -25,6 +25,7 @@ export default function InputSearch() {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setSearchInputValue(e.target.value)
         }
+        className="border container-weather border-violet-300 rounded-md p-1 mx-1"
       />
       <button onClick={() => findAutoComplete()}>Search</button>
     </div>
