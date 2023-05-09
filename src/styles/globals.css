@@ -49,7 +49,7 @@ body {
 }
 
 .clouds {
-  background-image: var(--clouds);
+  /* background-image: var(--clouds); */
   background-repeat: no-repeat;
   background-size: cover;
 }

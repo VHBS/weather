@@ -3,11 +3,18 @@ import { WeatherContext } from '@component/contexts/WeatherContext';
 import React, { useContext, useEffect, useState } from 'react';
 import { HiLocationMarker } from 'react-icons/hi';
 import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
-import windSubinfo from '../../public/img/wind-sub-info.png';
-import humiditySubInfo from '../../public/img/humidity-sub-info.png';
-import rainSubInfo from '../../public/img/rain-sub-info.png';
 
-import Image from 'next/image';
+import sunImage from '../../public/img/sun.png';
+import cloudsImage from '../../public/img/clouds.png';
+import cloudyImage from '../../public/img/cloudy.png';
+import rainImage from '../../public/img/rain.png';
+import stormImage from '../../public/img/storm.png';
+
+import humiditySubInfoImage from '../../public/img/humidity-sub-info.png';
+import windSubinfoImage from '../../public/img/wind-sub-info.png';
+import cloudnessSubInfoImage from '../../public/img/cloudness.png';
+
+import Image, { StaticImageData } from 'next/image';
 
 export default function WeatherInfo() {
   const { city, state } = useContext(WeatherContext);
@@ -27,11 +34,38 @@ export default function WeatherInfo() {
   }, [city]);
 
   console.log(weatherInfo);
+  interface WeatherIcons {
+    [key: string]: StaticImageData;
+  }
+
+  const weatherMainIcon: WeatherIcons = {
+    Thunderstorm: stormImage,
+    Drizzle: cloudyImage,
+    Rain: rainImage,
+    Snow: rainImage,
+    Clear: sunImage,
+    Clouds: cloudsImage,
+    Mist: cloudsImage,
+    Smoke: cloudsImage,
+    Dust: cloudyImage,
+    Fog: cloudyImage,
+    Ash: cloudsImage,
+    Squall: stormImage,
+    Tornado: stormImage,
+  };
 
   if (weatherInfo) {
     return (
       <div className="container grid lg:grid-cols-2 gap-4 px-10 min-h-full my-3 relative ">
-        <div className="clouds absolute w-20 h-20 z-20 left-2 -top-10" />
+        <div className="clouds absolute w-20 h-20 z-20 -top-10">
+          <Image
+            src={weatherMainIcon[weatherInfo.weather[0].main]}
+            alt="wind represented"
+            width={102}
+            height={102}
+            className="mr-4"
+          />
+        </div>
         <div className="border container-weather border-violet-400 rounded-2xl min-h-full relative background-weather-temperature backdrop-blur-lg">
           <div className="z-10 relative flex flex-col justify-between items-center h-full">
             <p className="w-full flex justify-end items-center text-stone-300 font-semibold text-sm  p-7">
@@ -58,13 +92,13 @@ export default function WeatherInfo() {
             </div>
 
             <div className="w-full flex mt-20 mb-3 px-3 justify-evenly items-stretch">
-              <div className="sub-container-weather backdrop-blur-sm py-3 px-6 flex justify-center items-center rounded-md mr-2">
+              <div className="sub-container-weather backdrop-blur-sm py-3 px-4 flex justify-center items-center rounded-md mr-2">
                 <Image
-                  src={windSubinfo}
+                  src={windSubinfoImage}
                   alt="wind represented"
-                  width={32}
-                  height={32}
-                  className="mr-3"
+                  width={36}
+                  height={36}
+                  className="mr-4"
                 />
                 <div>
                   <p className="text-[0.75rem] text-stone-300">Vento</p>
@@ -77,13 +111,13 @@ export default function WeatherInfo() {
                 </div>
               </div>
 
-              <div className="sub-container-weather backdrop-blur-sm py-3 px-6 flex justify-center items-center rounded-md mr-2">
+              <div className="sub-container-weather backdrop-blur-sm py-3 px-4 flex justify-center items-center rounded-md mr-2">
                 <Image
-                  src={humiditySubInfo}
+                  src={humiditySubInfoImage}
                   alt="wind represented"
-                  width={32}
-                  height={32}
-                  className="mr-3"
+                  width={36}
+                  height={36}
+                  className="mr-4"
                 />
                 <div>
                   <p className="text-[0.75rem] text-stone-300">Umidade</p>
@@ -96,16 +130,16 @@ export default function WeatherInfo() {
                 </div>
               </div>
 
-              <div className="sub-container-weather backdrop-blur-sm py-3 px-6 flex justify-center items-center rounded-md">
+              <div className="sub-container-weather backdrop-blur-sm py-3 px-4 flex justify-center items-center rounded-md">
                 <Image
-                  src={rainSubInfo}
+                  src={cloudnessSubInfoImage}
                   alt="wind represented"
-                  width={32}
-                  height={32}
-                  className="mr-3"
+                  width={36}
+                  height={36}
+                  className="mr-4"
                 />
                 <div>
-                  <p className="text-[0.75rem] text-stone-300">Chuva</p>
+                  <p className="text-[0.75rem] text-stone-300">Nuvens</p>
                   <div className="flex items-b font-medium">
                     <p className="text-xl leading-4">
                       {weatherInfo.clouds.all}
