@@ -9,6 +9,8 @@ import cloudsImage from '../../public/img/clouds.png';
 import cloudyImage from '../../public/img/cloudy.png';
 import rainImage from '../../public/img/rain.png';
 import stormImage from '../../public/img/storm.png';
+import sunTimeImage from '../../public/img/time-sun.png';
+import sunTimeHourImage from '../../public/img/time-sun-hour.png';
 
 import humiditySubInfoImage from '../../public/img/humidity-sub-info.png';
 import windSubinfoImage from '../../public/img/wind-sub-info.png';
@@ -29,11 +31,12 @@ export default function WeatherInfo() {
         .then((result) => {
           setWeatherInfo(result);
         })
-        .catch((error) => console.log('error', error));
+        .catch((error) => {
+          console.log('error', error);
+        });
     }
   }, [city]);
 
-  console.log(weatherInfo);
   interface WeatherIcons {
     [key: string]: StaticImageData;
   }
@@ -73,22 +76,24 @@ export default function WeatherInfo() {
               {city}, {state}
             </p>
 
-            <div className="w-full flex justify-center items-start mt-10">
-              <p className="text-8xl font-semibold">
-                {weatherInfo.main.temp.toFixed()}
-              </p>
-              <p className="font-semibold text-2xl text-stone-300">°C</p>
-            </div>
+            <div className="backdrop-blur-sm sub-container-weather mt-10 py-3 px-4 rounded-md">
+              <div className="w-full flex justify-center items-start ">
+                <p className="text-8xl font-semibold">
+                  {weatherInfo.main.temp.toFixed()}
+                </p>
+                <p className="font-semibold text-2xl text-stone-300">°C</p>
+              </div>
 
-            <div className="w-full flex justify-center items-center mt-3 font-semibold divide-x divide-violet-300">
-              <p className="text-xl px-3 text-stone-300 flex items-center">
-                <AiOutlineCaretDown className="text-xs" />
-                {weatherInfo.main.temp_min.toFixed()}°
-              </p>
-              <p className="text-xl px-3 flex items-center">
-                <AiOutlineCaretUp className="text-xs" />
-                {weatherInfo.main.temp_max.toFixed()}°
-              </p>
+              <div className="w-full flex justify-center items-center mt-3 font-semibold divide-x divide-violet-300">
+                <p className="text-xl px-3 text-stone-300 flex items-center">
+                  <AiOutlineCaretDown className="text-xs" />
+                  {weatherInfo.main.temp_min.toFixed()}°
+                </p>
+                <p className="text-xl px-3 flex items-center">
+                  <AiOutlineCaretUp className="text-xs" />
+                  {weatherInfo.main.temp_max.toFixed()}°
+                </p>
+              </div>
             </div>
 
             <div className="w-full flex mt-20 mb-3 px-3 justify-evenly items-stretch">
@@ -151,15 +156,65 @@ export default function WeatherInfo() {
             </div>
           </div>
         </div>
-        <div className="border container-weather border-violet-400 overflow-hidden rounded-lg min-h-full relative p-7">
-          <p>weather: {weatherInfo.weather[0].main}</p>
-          <p>weather description: {weatherInfo.weather[0].description}</p>
-          <p>thermal sensation: {weatherInfo.main.feels_like}</p>
-          <p>visibility: {weatherInfo.visibility}</p>
-        </div>
-        <div>
-          <p>sunset: {new Date(weatherInfo.sys.sunset * 1000).getHours()}</p>
-          <p>sunrise: {new Date(weatherInfo.sys.sunrise * 1000).getHours()}</p>
+
+        <div className="border container-weather border-violet-400 overflow-hidden rounded-2xl min-h-full relative flex items-center justify-start flex-col bg-violet-700">
+          <div className="flex p-7 mb-10">
+            <Image
+              src={sunTimeImage}
+              alt="wind represented"
+              width={24}
+              height={24}
+              className="mr-2"
+            />
+            <p className="text-stone-300 font-semibold">Horário do Sol</p>
+          </div>
+
+          <div className="h-full flex flex-col items-center justify-start relative">
+            <div className="w-72 aspect-[6/3] rounded-t-full bg-gradient-to-b from-yellow-400 absolute opacity-40 top-0"></div>
+
+            <div className="w-48 aspect-[1/1] rounded-t-r-full container-weather left-[13.5rem] z-0 absolute top-0"></div>
+
+            <div className="w-72 aspect-[6/3] border-dashed border-t-2 border-x-2 border-yellow-400 rounded-t-full z-30 overflow-hidden">
+              <Image
+                src={sunTimeHourImage}
+                alt="wind represented"
+                width={16}
+                height={16}
+                className="ml-48 mt-1 absolute"
+              />
+              <div className="flex h-full items-center justify-center w-full font-bold">
+                <p className="mt-6">
+                  {new Date().getHours().toString().padStart(2, '0')}:
+                  {new Date().getMinutes().toString().padStart(2, '0')}
+                </p>
+              </div>
+            </div>
+            <div className="w-[18.5rem] border-t -mt-1 flex justify-between border-yellow-400 relative"></div>
+            <div className="flex justify-between w-[20rem] mt-2 text-xs tracking-wider mb-3">
+              <p>
+                {new Date(weatherInfo.sys.sunrise * 1000)
+                  .getHours()
+                  .toString()
+                  .padStart(2, '0')}
+                :
+                {new Date(weatherInfo.sys.sunrise * 1000)
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}
+              </p>
+              <p className="z-10">
+                {new Date(weatherInfo.sys.sunset * 1000)
+                  .getHours()
+                  .toString()
+                  .padStart(2, '0')}
+                :
+                {new Date(weatherInfo.sys.sunset * 1000)
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );

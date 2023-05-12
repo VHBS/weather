@@ -8,7 +8,7 @@
   --background-end-rgb: 255, 255, 255;
   --background-clouds:  url('../../public/img/background.png');
   --background-temperature-clouds:  url('../../public/img/temperature-bg.png');
-  --background-container: #8E87FA;
+  --background-container: #6D67D0;
   --background-sub-container: #6560c890;
   --clouds: url('../../public/img/clouds.png');
 
@@ -24,11 +24,13 @@
 
 body {
   color: white;
-  background-color: var(--background-container);
+  background-color: #8E87FA;
   background-image: var(--background-clouds);
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: 100%;
+  @apply
+  tracking-wide
 }
 
 .container-weather {
