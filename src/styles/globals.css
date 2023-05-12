@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background-clouds:  url('../../public/img/background.png');
+  --background-temperature-clouds:  url('../../public/img/temperature-bg.png');
+  --background-container: #6D67D0;
+  --background-sub-container: #6560c890;
+  --clouds: url('../../public/img/clouds.png');
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +23,36 @@
 }
 
 body {
-  color: black
+  color: white;
+  background-color: #8E87FA;
+  background-image: var(--background-clouds);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  @apply
+  tracking-wide
 }
+
+.container-weather {
+  background-color: var(--background-container);
+}
+
+.sub-container-weather {
+  background-color: var(--background-sub-container);
+
+}
+
+.background-weather-temperature {
+  background-color: #6D67D0;
+  background-image: var(--background-temperature-clouds);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.clouds {
+  /* background-image: var(--clouds); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+

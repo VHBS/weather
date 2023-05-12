@@ -24,7 +24,6 @@ export default function Home() {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result.features[0].properties.city);
           setCity(result.features[0].properties.city);
           setState(result.features[0].properties.state_code);
         })
@@ -44,9 +43,15 @@ export default function Home() {
   }, [setCity, setState]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-24">
-      {loading ? <Loading /> : <InputSearch />}
-      <WeatherInfo />
+    <main className="flex flex-col min-h-screen items-center justify-center p-10">
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <InputSearch />
+          <WeatherInfo />
+        </>
+      )}
     </main>
   );
 }
