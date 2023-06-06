@@ -1,5 +1,6 @@
 import InputSearch from '@component/components/InputSearch';
 import Loading from '@component/components/Loading';
+import Logo from '@component/components/Logo';
 import WeatherInfo from '@component/components/WeatherInfo';
 import { WeatherContext } from '@component/contexts/WeatherContext';
 import React, { useContext } from 'react';
@@ -48,6 +49,7 @@ export default function Home() {
         <Loading />
       ) : (
         <>
+          <Logo />
           <InputSearch />
           <WeatherInfo />
         </>

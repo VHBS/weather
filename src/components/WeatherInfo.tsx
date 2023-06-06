@@ -2,7 +2,11 @@ import { WeatherInfoType } from '@component/@types/WeatherInfo';
 import { WeatherContext } from '@component/contexts/WeatherContext';
 import React, { useContext, useEffect, useState } from 'react';
 import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineCaretUp, AiOutlineCaretDown } from 'react-icons/ai';
+import {
+  AiOutlineCaretUp,
+  AiOutlineCaretDown,
+  AiOutlineEyeInvisible,
+} from 'react-icons/ai';
 
 import sunImage from '../../public/img/sun.png';
 import cloudsImage from '../../public/img/clouds.png';
@@ -21,6 +25,7 @@ import Image, { StaticImageData } from 'next/image';
 export default function WeatherInfo() {
   const { city, state } = useContext(WeatherContext);
   const [weatherInfo, setWeatherInfo] = useState<WeatherInfoType>();
+  const [cityNotFound, setCityNotFound] = useState<boolean>(false);
 
   useEffect(() => {
     if (city) {
@@ -29,10 +34,15 @@ export default function WeatherInfo() {
       )
         .then((response) => response.json())
         .then((result) => {
-          setWeatherInfo(result);
+          if (result.cod === 200) {
+            setCityNotFound(false);
+            setWeatherInfo(result);
+          } else {
+            setCityNotFound(true);
+          }
         })
-        .catch((error) => {
-          console.log('error', error);
+        .catch(() => {
+          setCityNotFound(true);
         });
     }
   }, [city]);
@@ -57,12 +67,21 @@ export default function WeatherInfo() {
     Tornado: stormImage,
   };
 
+  if (cityNotFound) {
+    return (
+      <div className="my-5 flex justify-center items-center font-bold">
+        <AiOutlineEyeInvisible className="mx-3 text-2xl" />
+        <p>City not found!</p>
+      </div>
+    );
+  }
+
   if (weatherInfo) {
     return (
       <div className="container grid lg:grid-cols-2 gap-4 px-10 min-h-full my-3 relative ">
         <div className="clouds absolute w-20 h-20 z-20 -top-10">
           <Image
-            src={weatherMainIcon[weatherInfo.weather[0].main]}
+            src={weatherMainIcon[weatherInfo.weather[0]?.main]}
             alt="wind represented"
             width={102}
             height={102}
