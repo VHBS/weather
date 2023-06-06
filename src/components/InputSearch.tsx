@@ -20,8 +20,7 @@ export default function InputSearch() {
         setState(result.results[0].state_code);
         setLoading(false);
       })
-      .catch((error) => {
-        console.log('error', error);
+      .catch(() => {
         setLoading(false);
       });
   };
@@ -31,11 +30,12 @@ export default function InputSearch() {
       {loading && <TbLoaderQuarter className="animate-spin absolute -left-4" />}
 
       <input
+        placeholder="City"
         value={searchInputValue}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setSearchInputValue(e.target.value)
         }
-        className="border container-weather border-violet-400 rounded-md py-1 px-2 mx-1"
+        className="placeholder:opacity-50 placeholder:italic placeholder:text-slate-300 border container-weather border-violet-400 rounded-md py-1 px-2 mx-1"
       />
 
       <button
