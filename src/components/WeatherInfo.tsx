@@ -125,7 +125,7 @@ export default function WeatherInfo() {
                   className="mr-4"
                 />
                 <div>
-                  <p className="text-[0.75rem] text-stone-300">Vento</p>
+                  <p className="text-[0.75rem] text-stone-300">Wind</p>
                   <div className="flex items-b font-medium">
                     <p className="text-xl leading-4">
                       {(weatherInfo.wind.speed * 3.6).toFixed()}
@@ -144,7 +144,7 @@ export default function WeatherInfo() {
                   className="mr-4"
                 />
                 <div>
-                  <p className="text-[0.75rem] text-stone-300">Umidade</p>
+                  <p className="text-[0.75rem] text-stone-300">Humidity</p>
                   <div className="flex items-b font-medium">
                     <p className="text-xl leading-4">
                       {weatherInfo.main.humidity.toFixed()}
@@ -163,7 +163,7 @@ export default function WeatherInfo() {
                   className="mr-4"
                 />
                 <div>
-                  <p className="text-[0.75rem] text-stone-300">Nuvens</p>
+                  <p className="text-[0.75rem] text-stone-300">Clouds</p>
                   <div className="flex items-b font-medium">
                     <p className="text-xl leading-4">
                       {weatherInfo.clouds.all}
@@ -185,7 +185,7 @@ export default function WeatherInfo() {
               height={24}
               className="mr-2"
             />
-            <p className="text-stone-300 font-semibold">Horário do Sol</p>
+            <p className="text-stone-300 font-semibold">Sun time</p>
           </div>
 
           <div className="h-full flex flex-col items-center justify-start relative">
